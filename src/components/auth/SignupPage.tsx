@@ -45,30 +45,30 @@ const SignupPage = ({ onLogin }: SignupPageProps) => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
+    e.preventDefault();
+    setIsLoading(true);
 
-  try {
-    const response = await axios.post('http://localhost:5000/user/auth/register', formData); // ✅ exact fields match your backend
+    try {
+      const response = await axios.post('http://localhost:5000/user/auth/register', formData); // ✅ exact fields match your backend
 
-    const { token, user } = response.data;
+      const { token, user } = response.data;
 
-    // Save the JWT
-    localStorage.setItem("token", token);
-    localStorage.setItem("userId", response.data.user.id); // 👈 Here
+      // Save the JWT
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", response.data.user.id); // 👈 Here
 
 
-    toast.success("Account created successfully!");
+      toast.success("Account created successfully!");
 
-    // Do whatever next (e.g., navigate, update auth state)
-    onLogin();
-  } catch (err: any) {
-    const errorMsg = err.response?.data?.message || "Signup failed. Try again.";
-    toast.error(errorMsg);
-  } finally {
-    setIsLoading(false);
-  }
-};
+      // Do whatever next (e.g., navigate, update auth state)
+      onLogin();
+    } catch (err: any) {
+      const errorMsg = err.response?.data?.message || "Signup failed. Try again.";
+      toast.error(errorMsg);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleGoogleSignup = () => {
     toast.success("Google signup successful!");
@@ -90,15 +90,16 @@ const SignupPage = ({ onLogin }: SignupPageProps) => {
         <CardContent className="space-y-4">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex flex-col items-center space-y-2">
-              <Avatar className="h-20 w-20">
-                <AvatarImage src={formData.profilePicture} />
-                <AvatarFallback>
-                  <Upload className="h-8 w-8 text-muted-foreground" />
-                </AvatarFallback>
-              </Avatar>
-              <Label htmlFor="profile-picture" className="cursor-pointer text-sm text-primary hover:underline">
-                Upload Profile Picture
-              </Label>
+              <label htmlFor="profile-picture" className="cursor-pointer flex flex-col items-center space-y-2 group">
+                <Avatar className="h-20 w-20 group-hover:ring-2 group-hover:ring-primary transition-all">
+                  <AvatarImage src={formData.profilePicture} />
+                  <AvatarFallback>
+                    <Upload className="h-8 w-8 text-muted-foreground" />
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-sm text-primary group-hover:underline">Upload Profile Picture</span>
+              </label>
+
               <Input
                 id="profile-picture"
                 type="file"
@@ -107,6 +108,7 @@ const SignupPage = ({ onLogin }: SignupPageProps) => {
                 onChange={handleProfilePictureUpload}
               />
             </div>
+
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -200,7 +202,7 @@ const SignupPage = ({ onLogin }: SignupPageProps) => {
               {isLoading ? "Creating Account..." : "Create Account"}
             </Button>
           </form>
-          
+
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <Separator className="w-full" />
@@ -209,7 +211,7 @@ const SignupPage = ({ onLogin }: SignupPageProps) => {
               <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
             </div>
           </div>
-          
+
           <Button
             type="button"
             variant="outline"
@@ -236,7 +238,7 @@ const SignupPage = ({ onLogin }: SignupPageProps) => {
             </svg>
             Continue with Google
           </Button>
-          
+
           <div className="text-center text-sm">
             Already have an account?{" "}
             <Link to="/login" className="text-primary hover:underline font-medium">
