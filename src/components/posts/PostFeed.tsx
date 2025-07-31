@@ -74,7 +74,7 @@ const PostFeed = () => {
         },
       });
       setUserPost(res.data);
-      setPosts(prev => [res.data, ...prev]);
+      // setPosts(prev => [res.data, ...prev]);
       setNewPostContent('');
       setSelectedMedia(null);
     } catch (err) {

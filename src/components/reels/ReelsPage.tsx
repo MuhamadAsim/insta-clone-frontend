@@ -84,13 +84,24 @@ const ReelsPage = () => {
     }
   }, [currentReelIndex, isPlaying]);
 
+
+  let scrollTimeout: NodeJS.Timeout;
+
   const handleScroll = (e: React.WheelEvent) => {
-    if (e.deltaY > 0 && currentReelIndex < reels.length - 1) {
-      setCurrentReelIndex(prev => prev + 1);
-    } else if (e.deltaY < 0 && currentReelIndex > 0) {
-      setCurrentReelIndex(prev => prev - 1);
-    }
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(() => {
+      if (e.deltaY > 0 && currentReelIndex < reels.length - 1) {
+        setCurrentReelIndex((prev) => prev + 1);
+      } else if (e.deltaY < 0 && currentReelIndex > 0) {
+        setCurrentReelIndex((prev) => prev - 1);
+      }
+    }, 20); 
   };
+
+
+
+
 
   const markReelAsWatched = async (reelId: string) => {
     try {
@@ -355,20 +366,32 @@ const ReelsPage = () => {
               />
             );
           })
-          : reels[currentReelIndex] && (
-            <ReelCard
-              reel={reels[currentReelIndex]}
-              index={currentReelIndex}
-              videoRef={(el) => (videoRefs.current[currentReelIndex] = el)}
-              isMuted={isMuted}
-              isPlaying={isPlaying}
-              onTogglePlay={() => setIsPlaying((prev) => !prev)}
-              onToggleMute={() => setIsMuted((prev) => !prev)}
-              onLike={() => handleLike(reels[currentReelIndex].id)}
-              onOpenComments={() => handleOpenComments(reels[currentReelIndex].id)}
-              isMobile={isMobile}
-            />
-          )}
+          : reels.length > 0 && (
+            <div className="relative h-[80vh] w-full">
+              {[currentReelIndex - 1, currentReelIndex, currentReelIndex + 1]
+                .filter((i) => i >= 0 && i < reels.length)
+                .map((i) => (
+                  <div
+                    key={reels[i].id}
+                    className={`absolute inset-0 transition-opacity duration-300 ${i === currentReelIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  >
+                    <ReelCard
+                      reel={reels[i]}
+                      index={i}
+                      videoRef={(el) => (videoRefs.current[i] = el)}
+                      isMuted={isMuted}
+                      isPlaying={i === currentReelIndex && isPlaying}
+                      onTogglePlay={() => setIsPlaying((prev) => !prev)}
+                      onToggleMute={() => setIsMuted((prev) => !prev)}
+                      onLike={() => handleLike(reels[i].id)}
+                      onOpenComments={() => handleOpenComments(reels[i].id)}
+                      isMobile={isMobile}
+                    />
+                  </div>
+                ))}
+            </div>
+          )
+        }
       </div>
 
       <CommentSection

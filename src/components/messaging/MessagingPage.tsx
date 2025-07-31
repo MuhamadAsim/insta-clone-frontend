@@ -26,8 +26,8 @@ const MessagingPage = () => {
   const chats: Chat[] = [
     {
       id: '1',
-      name: 'Alice Johnson',
-      username: 'alicejohnson',
+      name: 'Ali',
+      username: '@ali',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face',
       lastMessage: 'Hey! How are you doing today?',
       timestamp: '2m ago',
@@ -37,8 +37,8 @@ const MessagingPage = () => {
     },
     {
       id: '2',
-      name: 'Bob Smith',
-      username: 'bobsmith',
+      name: 'Hamza',
+      username: '@hamza',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
       lastMessage: 'Thanks for sharing those photos!',
       timestamp: '1h ago',
@@ -47,8 +47,8 @@ const MessagingPage = () => {
     },
     {
       id: '3',
-      name: 'Charlie Brown',
-      username: 'charliebrown',
+      name: 'Brown',
+      username: '2brown',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
       lastMessage: 'Let\'s meet up this weekend',
       timestamp: '3h ago',
@@ -57,7 +57,7 @@ const MessagingPage = () => {
     },
     {
       id: '4',
-      name: 'Diana Prince',
+      name: 'Prince',
       username: 'dianaprince',
       avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
       lastMessage: 'Voice message',
@@ -67,7 +67,7 @@ const MessagingPage = () => {
     },
     {
       id: '5',
-      name: 'Emma Thompson',
+      name: 'Emma',
       username: 'emmathompson',
       avatar: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=400&fit=crop&crop=face',
       lastMessage: 'See you tomorrow!',
